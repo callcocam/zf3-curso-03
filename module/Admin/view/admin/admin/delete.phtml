@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-6 col-xs-12 col-md-offset-3 col-xs-offset-0">
+<div class="panel panel-default">
+    <div class="panel-heading">DESEJA REALMENTE EXCLUIR O REGISTRO?</div>
+    <div class="panel-body">
+<form class="form-inline" action="<?php echo $this->url($this->route,['action'=>'delete','id'=>$id])?>" method="post">
+    <div class="row">
+        <div class="col-md-3 col-xs-6 ">
+            <button class="btn btn-danger" name="del" value="1">CONFIRMAR <span class="fa fa-check"></span></button>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <a href="<?=$this->url($this->route)?>" class="btn btn-warning">CANCELAR <span class="fa fa-share"></span></a>
+        </div>
+    </div>
+</form>
+    </div>
+</div>
+    </div>
+</div>

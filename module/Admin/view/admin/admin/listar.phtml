@@ -1,0 +1,78 @@
+    <?php
+    echo $this->messages();
+    if($this->data)
+    {
+        $block=$partial=$this->partial("/partial/tpl/block");
+        if(!is_dir("./module/Admin/view/admin/admin/tpl/{$this->controller}")):
+            mkdir("./module/Admin/view/admin/admin/tpl/{$this->controller}");
+        endif;
+        //if (!$this->resolver("admin/admin/tpl/{$this->controller}/listar")) :
+            file_put_contents("./module/Admin/view/admin/admin/tpl/{$this->controller}/listar.phtml", $block);
+        //endif;
+        $partial=$this->partial("admin/admin/tpl/{$this->controller}/listar");
+        $c=0;
+        $html=[];
+       foreach($data as $o):
+           if(is_object($o)){
+               $o=$o->toArray();
+           }
+
+                $o['rota-editar']=$this->url($this->route,['action'=>'update','id'=>$o['id']]);
+                $o['rota-excluir']=$this->url($this->route,['action'=>'delete','id'=>$o['id']]);
+                $o['description'] = \Base\Model\Check::Words($o['description'], 10);
+                // $o['buttons'] = $this->GerarViewHelper()->createBtn($o['id'], $button);
+
+               if (array_key_exists("images", $o)) {
+                       $images = $o['images'];
+                       $root = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+                       $info = new \SplFileInfo(sprintf("%s/dist/%s",$root,$images));
+                       if(\Base\Model\Check::isFileHidden($info)){
+                           $o['images'] = $this->Html("img")->setAttributes(array(
+                               'alt' => \Base\Model\Check::Words($o['title'], 5),
+                               'title' =>  \Base\Model\Check::Words($o['title'], 10),
+                               'style' => 'width: 100%; display: block;',
+                               'src' => sprintf("/dist/%s",$images)
+                               //'src' => "/dist/tim.php?src=/dist/{$images}&w=250&h=100"
+                           ));
+                       }
+                       else{
+                           $o['images']=$this->Html('img',PHP_EOL,['src'=>'/dist/no_image.jpg','style'=>'width:100%;height:250px;']);
+                       }
+
+               }
+           else{
+               $o['images'] ="";
+           }
+               $o['title'] = \Base\Model\Check::Words($o['title'], 3);
+               $implode = "#" . implode("#&#", array_keys($o)) . "#";
+               $o['state']=(int)$o['state']?"ARQUIVADO/DESPUBLICADO":"ATIVO/PUBLICADO";
+               $keys = explode("&", $implode);
+               $c++;
+               if($c>3){
+                   $c=1;
+                   $row[] =$this->Html('div')->setClass('row')->setText(implode("", $html));
+                   $html=[];
+               }
+               $html[] = str_replace(array_values($keys), array_values($o), $partial);
+
+           endforeach;
+           if ($html) {
+               $row[] =$this->Html('div')->setClass('row')->setText(implode("", $html));
+           }
+            $defaul=$partial=$this->partial("/partial/tpl/index");
+            $tpl['#btn-add#']=$this->Html('a')->setAttributes(['class'=>'btn btn-success pull-right','href'=>$this->url($this->route,['action'=>'create']),'style'=>'margin-top: -8px;'])->setText("CADASTRAR NOVO");
+
+            $tpl['#busca#']=$this->Search()->search($this->filtro);
+            $tpl['#blocks#']=implode("", $row);
+           if ($row) {
+               echo str_replace(array_keys($tpl), array_values($tpl), $defaul);
+           }
+
+    }
+    else{
+        $defaul=$partial=$this->partial("/partial/tpl/index");
+        $tpl['#btn-add#']=$this->Html('a')->setAttributes(['class'=>'btn btn-success pull-right','href'=>$this->url($this->route,['action'=>'create']),'style'=>'margin-top: -8px;'])->setText("CADASTRAR NOVO");
+        $tpl['#blocks#']="NENHUM RESULTADO FOI ENCOTRADO";
+        $tpl['#busca#']=$this->Search()->search($this->filtro);
+        echo str_replace(array_keys($tpl), array_values($tpl), $defaul);;
+    }

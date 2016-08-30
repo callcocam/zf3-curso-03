@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+    <div class="panel-heading">LISTA RESULTADOS
+        <a href="<?=$this->url($this->route,['action'=>'inserir'])?>" class="btn btn-success pull-right" style="margin-top: -8px;"><span class="fa fa-plus"> </span> ADICIONAR NOVO</a>
+
+        <a href="<?=$this->url('make',['action'=>'navigation'])?>" class="btn btn-primary pull-right" style="margin-top: -8px;"><span class="fa fa-refresh"> </span> ATUALIZAR NAVEGAÇÃO</a>
+    </div>
+
+    <div class="panel-body">
+        <?=$this->messages()?>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+                <th>TITLE</th>
+                <th>MODULE</th>
+                <th>ARQUIVO</th>
+                <th>TABELA</th>
+                <th>AÇÃO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php  if($data):?>
+                <?php foreach($data as $o):?>
+                    <tr>
+                        <td><?=$o->getTitle();?></td>
+                        <td><?=$o->getParent();?></td>
+                        <td><?=$o->getArquivo()?></td>
+                        <td><?=$o->getTabela()?></td>
+                        <td>
+                            <a href="<?=$this->url($this->route,['action'=>'update','id'=>$o->getId()])?>" class="btn btn-primary btn-xs"><span class="fa fa-edit"></span> <span class="hidden-xs">EDITAR</span> </a>
+                            | <a href="<?=$this->url($this->route,['action'=>'delete','id'=>$o->getId()])?>" class="btn btn-danger btn-xs excluir"><span class="fa fa-trash-o"></span> <span class="hidden-xs">EXCLUIR</span> </a>
+                            <?php if(!$o->getState()):?>
+                            | <a href="<?=$this->url('make',['action'=>'gerar','id'=>$o->getId()])?>" class="btn btn-success btn-xs"><span class="fa fa-adjust"></span> <span class="hidden-xs">GERAR MODULE</span> </a>
+                            | <a href="<?=$this->url('make',['action'=>'destroy','id'=>$o->getId()])?>" class="btn btn-warning btn-xs"><span class="fa fa-trash"></span> <span class="hidden-xs">DELETAR MODULE</span> </a>
+                           <?php endif;?>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
+            <?php endif;?>
+            </tbody>
+        </table>
+    </div>
+</div>

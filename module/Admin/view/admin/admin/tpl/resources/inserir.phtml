@@ -1,0 +1,79 @@
+<form method="POST" name="Resources" class="form-horizontal" id="Manager" role="form" action="&#x2F;resources&#x2F;finalizar">
+<fieldset>
+    <legend>FORMULARI DE MANUTENÇÃO</legend>
+    <div class="row">
+    	<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+            <fieldset>
+                <legend>GERAL</legend>
+                #id#
+#asset_id#
+#codigo#
+#empresa#
+<div class=""> <label class="control-label" for="title">
+{{title}}
+</label><div class="valid&#x20;title">
+#title#
+</div>
+
+</div>
+<div class=""> <label class="control-label" for="alias">
+{{alias}}
+</label><div class="valid&#x20;alias">
+#alias#
+</div>
+
+</div>
+<div class=""> <label class="control-label" for="description">
+{{description}}
+</label><div class="valid&#x20;description">
+#description#
+</div>
+ 
+</div>
+#security#
+
+
+                <hr>
+                <button type="submit" name="save" class="btn&#x20;btn-primary" value="">BTN_SAVE_LABEL</button>
+<a class="btn&#x20;btn-danger" href="&#x2F;resources">VOLTAR<span class="glyphicon&#x20;glyphicon-share-alt"></span></a>
+                <div class="clearfix"></div>
+            </fieldset>
+    	</div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <fieldset>
+                <legend>FORMULARI DE ADICIONAL</legend>
+               <div class="row">
+                   <div class="col-md-12">
+                       
+                       <div class="clearfix"></div>
+                   </div>
+                   <div class="col-md-12">
+                      <div class=""> <label class="control-label" for="access">
+{{access}}
+</label><div class="valid&#x20;access">
+#access#
+</div>
+ </div>
+<div class=""> <label class="control-label" for="state">
+{{state}}
+</label><div class="valid&#x20;state">
+#state#
+</div>
+ </div>
+<div class=""> <label class="control-label" for="created">
+{{created}}
+</label><div class="valid&#x20;created">
+#created#
+</div>
+
+</div>
+#modified#
+                       <div class="clearfix"></div>
+                   </div>
+               </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</fieldset>
+</form>

@@ -1,0 +1,20 @@
+<?php
+$this->MakeForm()->gerar($form);
+
+if(!is_dir("./module/Admin/view/admin/admin/tpl/{$this->controller}")):
+    mkdir("./module/Admin/view/admin/admin/tpl/{$this->controller}");
+endif;
+if (!$this->resolver("admin/admin/tpl/{$this->controller}/{$this->tplEditar}")) :
+    $html=str_replace("#open-form#", $this->MakeForm()->openTag($form), $this->partial("/partial/tpl/fieldset"));
+    $defaul=str_replace("#close-form#", $this->MakeForm()->closeTag(), $html);
+    $html=str_replace("#controller#", implode(PHP_EOL,$this->MakeForm()->getControle()), $defaul);
+    $defaul=str_replace("#datas#", implode(PHP_EOL,$this->MakeForm()->getDatas()), $html);
+    $html=str_replace("#geral#", implode(PHP_EOL,$this->MakeForm()->getGeral()), $defaul);
+    $defaul=str_replace("#comando#", implode(PHP_EOL,$this->MakeForm()->getBtn()), $html);
+    file_put_contents("./module/Admin/view/admin/admin/tpl/{$this->controller}/{$this->tplEditar}.phtml", $defaul);
+endif;
+$html = $this->partial("admin/admin/tpl/{$this->controller}/{$this->tplEditar}");
+$primeiro = str_replace(array_keys($this->MakeForm()->getFields()), array_values($this->MakeForm()->getFields()), $html);
+echo str_replace(array_keys($this->MakeForm()->getLabes()), array_values($this->MakeForm()->getLabes()), $primeiro);
+
+

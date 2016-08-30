@@ -1,0 +1,48 @@
+<?php echo $this->doctype() ?>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <?php echo$this->headTitle('TELA DE AUTENTICAÇÃO')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo$this->headLink(['rel' => 'shortcut icon', 'type' => '/assets_admin/image/vnd.microsoft.icon', 'href' => $this->basePath() . '/assets_admin/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('/assets_admin/css/font-awesome.min.css'))
+            ->prependStylesheet($this->basePath('/assets_admin/css/bootstrap-theme.min.css'))
+            ->prependStylesheet($this->basePath('/assets_admin/css/bootstrap.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('/assets_admin/js/bootstrap.min.js'))
+            ->prependFile($this->basePath('/assets_admin/js/jquery-3.1.0.min.js'))
+        ?>
+        <style>
+            .login{
+                width: 40%;
+                margin: 100px auto;
+            }
+            .login .btn{
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+
+                <?=$this->messages()?>
+                <?= $this->content ?>
+
+             <hr>
+            <footer>
+                <p>&copy; 2005 - <?= date('Y') ?> by Zend Technologies Ltd. All rights reserved.</p>
+            </footer>
+        </div>
+        <?= $this->inlineScript() ?>
+    </body>
+</html>

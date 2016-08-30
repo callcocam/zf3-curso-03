@@ -1,0 +1,17 @@
+
+<!-- File: upload-form.phtml -->
+<?php
+$form->prepare(); // The correct enctype is set here
+echo $this->form()->openTag($form);
+foreach($form->getElements() as $element):
+?>
+
+<div class="form-element">
+    <?= $this->formLabel($element) ?>
+    <?= $this->formElement($element) ?>
+    <?= $this->formElementErrors($element) ?>
+</div>
+<?php endforeach;?>
+<button>Submit</button>
+<?= $this->form()->closeTag() ?>
+<?php var_dump($tempFile);
